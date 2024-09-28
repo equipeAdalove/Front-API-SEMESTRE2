@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    -fx-font-family: "Poppins";
+}
+
+.root {
+    -fx-standard-background-color: #C4DAD2;
+    -fx-standard-font-strong-color: rgba(22, 66, 60, 1);
+    -fx-standard-font-medium-color: rgba(22, 66, 60, 0.9);
+    -fx-standard-font-weak-color: rgba(22, 66, 60, 0.7);
+
+
+}
+
+.background-screen {
+    -fx-background-color: -fx-standard-background-color;
+
+}
+
+.loginTextField {
+    -fx-border-color: -fx-standard-font-strong-color;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 12px;
+
+}
+
+.button {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: -fx-standard-font-medium-color;
+    -fx-padding: 0px 10px;
+    -fx-font-size: 16px;
+
+}
+
+.title {
+    -fx-font-size: 60px;
+    -fx-fill: -fx-standard-font-strong-color;
+    -fx-font-weight: bold;
+
+}
+
+.subtitle {
+    -fx-fill: -fx-standard-font-medium-color;
+}
+
+.fieldText {
+    -fx-font-size: 16px;
+    -fx-fill: -fx-standard-font-strong-color;
+
+}
+
+.adalove {
+    -fx-font-size: 12px;
+    -fx-fill: -fx-standard-font-weak-color;
+    -fx-underline: true;
+}
+
+
+.sidebar {
+    -fx-background-color: -fx-standard-background-color;
+    -fx-background-radius: 0 20px 20px 0;
+}
+
+.sidebarButton {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: -fx-standard-font-medium-color;
+    -fx-font-weight: bold;
+
+    -fx-cursor: hand;
+    -fx-padding: 5px 0;
+}
+
+.mainVBox {
+    -fx-padding: 20px;
+}

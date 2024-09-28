@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      spacing="10.0"
+      fx:controller="com.adalove.api.controller.ConsultarRegistroController"
+      prefHeight="400.0" prefWidth="600.0"
+      stylesheets="@../css/application.css">
+
+    <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="fieldText" text="Buscar por registro:" />
+        <TextField styleClass="loginTextField" />
+        <Button mnemonicParsing="false" text="Filtrar" />
+    </children>
+</VBox>

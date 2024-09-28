@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.adalove.api.controller.ResultadoFichaController"
+            prefHeight="400.0" prefWidth="600.0"
+            spacing="20.0"
+            stylesheets="@../css/application.css">
+
+    <children>
+        <Label text="Nome:"/>
+        <TextField fx:id="nomeField"/>
+
+        <Label text="CPF:"/>
+        <TextField fx:id="cpfField"/>
+
+        <Label text="Observações:"/>
+        <TextArea fx:id="observacoesField" wrapText="true"/>
+
+        <Button text="Salvar" onAction="#salvar"/>
+    </children>
+
+</VBox>
+
+
+
+
+
