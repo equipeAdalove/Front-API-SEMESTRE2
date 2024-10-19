@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" stylesheets="@../css/application.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/" fx:controller="com.adalove.api.controller.AdicionarPacienteController">
+    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Adicionar Paciente" />
+
+    <Label text="Nome:" />
+    <TextField fx:id="nomeField" promptText="Digite o nome do paciente" />
+
+    <Label text="CPF:" />
+    <TextField fx:id="cpfField" promptText="Digite o CPF do paciente" />
+
+    <Label text="Sexo:" />
+    <HBox alignment="CENTER" spacing="10">
+        <RadioButton fx:id="masculinoRadio" text="Masculino" toggleGroup="$sexoToggleGroup" />
+        <RadioButton fx:id="femininoRadio" text="Feminino" toggleGroup="$sexoToggleGroup" />
+    </HBox>
+
+    <Label text="Código CID" />
+    <ComboBox fx:id="codigoCidComboBox" />
+
+    <Label text="ID do médico" />
+    <TextField fx:id="idMedicoField" promptText="Digite o ID do medico" />
+
+
+    <HBox alignment="CENTER" spacing="10">
+        <Button onAction="#onCancelClick" text="Cancelar" styleClass="remove-button" />
+        <Button onAction="#onAddPacienteClick" text="Adicionar" styleClass="save-button" />
+    </HBox>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</VBox>

@@ -18,6 +18,9 @@
         <Label text="CPF:"/>
         <TextField fx:id="cpfField"/>
 
+        <Label text="ID Funcionário:"/>
+        <TextField fx:id="idFuncionarioField"/>
+
         <Label text="Observações:"/>
         <TextArea fx:id="observacoesField" wrapText="true"/>
 
@@ -25,6 +28,7 @@
     </children>
 
 </VBox>
+
 
 
 

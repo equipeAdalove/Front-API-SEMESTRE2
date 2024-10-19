@@ -24,8 +24,13 @@ public class MainViewController {
             CadastrarFichaController controller = loader.getController();
             controller.setVBoxRight(vboxRight);
 
+            view.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/application.css")).toExternalForm());
+
             vboxRight.getChildren().clear();
             vboxRight.getChildren().add(view);
+            view.getScene().setUserData(this);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,6 +40,11 @@ public class MainViewController {
     @FXML
     public void loadVisualizarRegistros() {
         loadView("/fxml/ConsultarRegistro.fxml");
+    }
+
+    @FXML
+    public void loadVisualizarDatabases() {
+        loadView("/fxml/ConsultarDatabases.fxml");
     }
 
     // Método genérico para carregar um arquivo FXML e substituir a VBox

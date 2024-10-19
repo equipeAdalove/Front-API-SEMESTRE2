@@ -9,54 +9,43 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-          prefWidth="800.0" styleClass="background-screen" stylesheets="@../css/application.css"
-          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.adalove.api.controller.LoginViewController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="background-screen" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adalove.api.controller.LoginViewController">
     <columnConstraints>
-        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="30.0"/>
-        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="752.0" minWidth="10.0" prefWidth="750.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="10.0" prefWidth="77.0"/>
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="30.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="752.0" minWidth="10.0" prefWidth="750.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="10.0" prefWidth="77.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="98.0" minHeight="0.0" prefHeight="44.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="96.0" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="191.0" minHeight="0.0" prefHeight="43.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="233.0" minHeight="10.0" prefHeight="130.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="138.0" minHeight="0.0" prefHeight="53.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="98.0" minHeight="0.0" prefHeight="44.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="96.0" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="191.0" minHeight="0.0" prefHeight="43.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="233.0" minHeight="10.0" prefHeight="130.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="138.0" minHeight="0.0" prefHeight="53.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle"
-              text="Software de Análise de Relatórios de Casos Clínicos" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Software de Análise de Relatórios de Casos Clínicos" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <font>
-                <Font size="23.0"/>
+                <Font size="23.0" />
             </font>
         </Text>
-        <PasswordField fx:id="passwordField" maxWidth="400.0" prefHeight="34.0" prefWidth="435.0"
-                       style="-fx-font-size: 10px;" styleClass="loginTextField" GridPane.columnIndex="1"
-                       GridPane.rowIndex="5">
+        <PasswordField fx:id="passwordField" maxWidth="400.0" prefHeight="34.0" prefWidth="435.0" style="-fx-font-size: 10px;" styleClass="loginTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
         </PasswordField>
-        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin" text="Entrar"
-                GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6"/>
+        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin" text="Entrar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
 
-        <Text fill="#16423c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="fieldText"
-              text="Digite a senha de acesso:" GridPane.columnIndex="1" GridPane.rowIndex="4"
-              GridPane.valignment="BOTTOM"/>
+        <Text fill="#16423c" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="fieldText" text="Digite a senha de acesso:" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
 
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Seja bem-vindo!" GridPane.columnIndex="1"
-              GridPane.rowIndex="1">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Seja bem-vindo!" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <font>
-                <Font size="35.0"/>
+                <Font size="35.0" />
             </font>
         </Text>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="adalove" text="© 2024 Adalove."
-              GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="adalove" text="© 2024 Adalove." GridPane.columnIndex="1" GridPane.rowIndex="8" />
     </children>
 </GridPane>

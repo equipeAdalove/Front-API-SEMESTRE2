@@ -100,12 +100,14 @@ public class CadastrarFichaController {
             String[] dados = resposta.split(",\\s*"); // Divide por vírgula, permitindo espaços após a vírgula
 
 
-            // Carregar a nova tela ResultadoFicha
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ResultadoFicha.fxml"));
             Parent root = loader.load();
 
-            // Passar os dados para o novo controller
+
             ResultadoFichaController controller = loader.getController();
+            controller.setMainViewController((MainViewController) vboxRight.getScene().getUserData());
+
 
             controller.setDados(dados[0], dados[1], dados[2]); // Passar nome, cpf, observações
 
@@ -113,7 +115,7 @@ public class CadastrarFichaController {
             vboxRight.getChildren().clear();
             vboxRight.getChildren().add(root);
 
-        } catch (OllamaBaseException | IOException | InterruptedException e) {
+        } catch (OllamaBaseException | IOException | InterruptedException e) { //(OllamaBaseException | IOException | InterruptedException e)
 
             e.printStackTrace();
         }

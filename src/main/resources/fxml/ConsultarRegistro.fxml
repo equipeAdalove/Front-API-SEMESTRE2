@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      spacing="10.0"
-      fx:controller="com.adalove.api.controller.ConsultarRegistroController"
-      prefHeight="400.0" prefWidth="600.0"
-      stylesheets="@../css/application.css">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 
+<VBox spacing="10" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adalove.api.controller.ConsultarRegistroController">
     <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="fieldText" text="Buscar por registro:" />
-        <TextField styleClass="loginTextField" />
-        <Button mnemonicParsing="false" text="Filtrar" />
+      <Label text="Buscar por registro:" />
+        <TextField fx:id="cpfTextField" promptText="Digite o CPF para busca" />
+        <Button onAction="#onBuscarClick" text="Buscar" />
+        <TableView fx:id="resultTableView" prefHeight="200" prefWidth="400" visible="false">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="100.0" text="ID" style="-fx-alignment: CENTER;" />
+                <TableColumn fx:id="cpfColumn" prefWidth="100.0" text="CPF Paciente" style="-fx-alignment: CENTER;" />
+                <TableColumn fx:id="idFuncionarioColumn" prefWidth="100.0" text="ID Funcionário" style="-fx-alignment: CENTER;"/>
+                <TableColumn fx:id="dataColumn" prefWidth="100.0" text="Data e Hora"  style="-fx-alignment: CENTER;" />
+                <TableColumn fx:id="deleteColumn" prefWidth="100.0" text="Ações" style="-fx-alignment: CENTER;" />
+
+            </columns>
+        </TableView>
+
     </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </VBox>

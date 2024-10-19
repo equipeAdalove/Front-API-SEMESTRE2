@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER_LEFT"  stylesheets="@../css/application.css" prefHeight="406.0" prefWidth="400.0" spacing="15.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adalove.api.controller.ModalController">
+    <children>
+        <!-- Título -->
+        <Label fx:id="titleLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Detalhes da Ficha do Paciente" />
+
+        <!-- Detalhes da ficha -->
+        <Label fx:id="idLabel" maxWidth="1.7976931348623157E308" style="-fx-border-color: #000000;" text="ID: ">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></Label>
+        <Label fx:id="cpfLabel" maxWidth="1.7976931348623157E308" style="-fx-border-color: #000000;" text="CPF Paciente: ">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></Label>
+        <Label fx:id="idFuncionarioLabel" maxWidth="1.7976931348623157E308" style="-fx-border-color: #000000;" text="ID Funcionário: ">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></Label>
+        <Label fx:id="observacoesLabel" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" prefHeight="90.0" prefWidth="360.0" style="-fx-border-color: #000;" text="Observações: " wrapText="true">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></Label>
+        <Label fx:id="dataLabel" maxWidth="1.7976931348623157E308" style="-fx-border-color: #000;" text="Data e Hora: ">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></Label>
+
+    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>
