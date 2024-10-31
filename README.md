@@ -1,2 +1,2 @@
 # Front-end - MindDoc Analyzer
-Projeto API - 2° emestre - ADS
+Projeto API - 2° semestre - ADS
