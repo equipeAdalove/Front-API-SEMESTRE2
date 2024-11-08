@@ -102,3 +102,8 @@
 .mainVBox {
     -fx-padding: 20px;
 }
+
+.edit-button:disabled {
+    opacity: 0.5;  /* Define a opacidade para o botão desabilitado */
+    cursor: not-allowed;  /* Muda o cursor para indicar que não pode ser clicado */
+}

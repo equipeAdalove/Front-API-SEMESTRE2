@@ -4,6 +4,7 @@ import com.adalove.api.model.dao.FichaPacienteDAO;
 import com.adalove.api.model.dao.PacienteDAO;
 import com.adalove.api.model.dao.UsuarioDAO;
 import com.adalove.api.model.entities.FichaPaciente;
+import com.adalove.api.model.entities.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -52,6 +53,13 @@ public class ConsultarRegistroController {
 
     private FichaPacienteDAO fichaPacienteDAO;
 
+    private Usuario usuario;
+
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @FXML
     private void initialize() {
         ajustarLarguraColunas();
@@ -67,65 +75,52 @@ public class ConsultarRegistroController {
         // Formatar a exibição da data na coluna
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        dataColumn.setCellFactory(new Callback<TableColumn<FichaPaciente, LocalDateTime>, TableCell<FichaPaciente, LocalDateTime>>() {
+        dataColumn.setCellFactory(param -> new TableCell<FichaPaciente, LocalDateTime>() {
             @Override
-            public TableCell<FichaPaciente, LocalDateTime> call(TableColumn<FichaPaciente, LocalDateTime> param) {
-                return new TableCell<FichaPaciente, LocalDateTime>() {
-                    @Override
-                    protected void updateItem(LocalDateTime item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            // Formatar a data e hora no formato desejado
-                            setText(item.format(formatter));
-                        }
-                    }
-                };
+            protected void updateItem(LocalDateTime item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.format(formatter));
             }
         });
 
-        // Configuração da coluna de exclusão
-        Callback<TableColumn<FichaPaciente, Void>, TableCell<FichaPaciente, Void>> cellFactory = new Callback<TableColumn<FichaPaciente, Void>, TableCell<FichaPaciente, Void>>() {
-            @Override
-            public TableCell<FichaPaciente, Void> call(final TableColumn<FichaPaciente, Void> param) {
-                final TableCell<FichaPaciente, Void> cell = new TableCell<FichaPaciente, Void>() {
-                    private final Button deleteButton = new Button("Excluir");
+        // Configuração da coluna de exclusão com controle de permissões
+        deleteColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteButton = new Button("Excluir");
 
-                    {
-                        deleteButton.getStyleClass().add("remove-button");
-                        deleteButton.setOnAction((event) -> {
-                            FichaPaciente fichaPaciente = getTableView().getItems().get(getIndex());
-                            mostrarDialogoDeSenha(fichaPaciente);  // Chama o método para pedir senha
-                        });
+            {
+                deleteButton.getStyleClass().add("remove-button");
+                deleteButton.setOnAction(event -> {
+                    FichaPaciente fichaPaciente = getTableView().getItems().get(getIndex());
+                    if (usuario.isAdministrador()) {
+                        mostrarDialogoDeSenha(fichaPaciente);  // Chama o método para pedir senha
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Permissão Negada", "Você não tem permissão para excluir registros.");
                     }
-
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(deleteButton);  // Exibe o botão na célula
-                        }
-                    }
-                };
-                return cell;
+                });
             }
-        };
 
-        deleteColumn.setCellFactory(cellFactory);  // Agora cellFactory está acessível aqui
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                    deleteButton.setDisable(!usuario.isAdministrador());  // Desabilita para usuários não administradores
+                }
+            }
+        });
 
-        // Adicionando o evento de clique na linha da TableView
         resultTableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 FichaPaciente selectedFicha = resultTableView.getSelectionModel().getSelectedItem();
                 if (selectedFicha != null) {
-                    showFichaDetails(selectedFicha);  // Chama o método ao clicar na linha
+                    showFichaDetails(selectedFicha);
                 }
             }
         });
     }
+
 
 
 
@@ -155,7 +150,7 @@ public class ConsultarRegistroController {
 
         // Verificar se o CPF foi preenchido
         if (cpf == null || cpf.isEmpty()) {
-            showAlert("Erro", "Por favor, insira um CPF válido.", Alert.AlertType.ERROR);
+            showAlert(Alert.AlertType.ERROR, "Erro", "Por favor, insira um CPF válido.");
             return;
         }
 
@@ -165,7 +160,7 @@ public class ConsultarRegistroController {
         // Verificar se foram encontradas fichas
         if (fichas.isEmpty()) {
             resultTableView.setVisible(false);
-            showAlert("Resultado", "Nenhum registro encontrado para o CPF: " + cpf, Alert.AlertType.INFORMATION);
+            showAlert( Alert.AlertType.INFORMATION,"Resultado", "Nenhum registro encontrado para o CPF: " + cpf);
         } else {
             resultTableView.setVisible(true);
             resultTableView.getItems().clear();
@@ -207,20 +202,11 @@ public class ConsultarRegistroController {
         }
     }
 
-    // Método auxiliar para exibir alertas
-    private void showAlert(String title, String message, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
     private void mostrarDialogoDeSenha(FichaPaciente fichaPaciente) {
         // Criar o dialog para pedir a senha
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Confirmação de Exclusão");
-        dialog.setHeaderText("Digite a senha do usuário root para confirmar a exclusão.");
+        dialog.setHeaderText("Digite sua senha para confirmar a exclusão.");
 
         // Definir os botões no dialog (OK e Cancelar)
         ButtonType loginButtonType = new ButtonType("Confirmar", ButtonBar.ButtonData.OK_DONE);
@@ -253,16 +239,18 @@ public class ConsultarRegistroController {
     }
 
     private void verificarSenhaEDeletar(FichaPaciente fichaPaciente, String password) {
-        String username = "root";  // Usuário fixo para o root
+        String username = usuario.getUsername(); // Obtém o nome de usuário do objeto atual
 
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            if (usuarioDAO.authenticateUser(username, password)) {  // Verifica se a senha está correta
+            Usuario authenticatedUser = usuarioDAO.authenticateUser(username, password); // Usa o usuário logado
+            if (authenticatedUser != null) { // Verifica se a autenticação foi bem-sucedida
                 fichaPacienteDAO.delete(fichaPaciente.getId());
                 resultTableView.getItems().remove(fichaPaciente);
                 showAlert(Alert.AlertType.INFORMATION, "Sucesso", "Ficha deletada com sucesso.");
             } else {
-                showAlert(Alert.AlertType.ERROR, "Erro", "Senha incorreta.");
+                // Mensagem personalizada informando que a senha está incorreta
+                showAlert(Alert.AlertType.ERROR, "Erro", "Senha incorreta para o usuário " + username + ".");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -270,8 +258,16 @@ public class ConsultarRegistroController {
         }
     }
 
-    private void showAlert(Alert.AlertType alertType, String sucesso, String s) {
+    // Método auxiliar para exibir alertas
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
+
+
 
 
 }

@@ -1,6 +1,8 @@
 package com.adalove.api.controller;
 
 import com.adalove.api.model.dao.UsuarioDAO;
+import com.adalove.api.model.entities.Usuario;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -17,6 +20,8 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class LoginViewController {
+    @FXML
+    private TextField loginField;
 
     @FXML
     private PasswordField passwordField;  // Alterado para PasswordField para maior segurança no campo de senha
@@ -26,26 +31,41 @@ public class LoginViewController {
 
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-    // Método atribuído ao botão de Login
     @FXML
     private void handleLogin() {
-        String username = "root";  // Usuário fixo para login (nao utiliza o valor extraido do TextField)
-        String password = passwordField.getText();  // Campo de senha
+        String username = loginField.getText();
+        String password = passwordField.getText();
 
         try {
-            if (usuarioDAO.authenticateUser(username, password)) {
+            Usuario usuario = usuarioDAO.authenticateUser(username, password);
+            if (usuario != null) {
+                showAlert(Alert.AlertType.INFORMATION, "Login feito com sucesso.", "Bem-vindo, " + usuario.getUsername() + "!");
 
-                showAlert(Alert.AlertType.INFORMATION, "Login feito com sucesso.", "Bem-vindo!");
-                loadDashboard(); // Carregar a tela do dashboard após login bem-sucedido
+                // Carregar o dashboard e passar o usuário
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView.fxml"));
+                Parent mainView = loader.load();
 
+                // Configura o usuário no controlador
+                MainViewController mainController = loader.getController();
+                mainController.setUsuario(usuario);
+
+                Scene mainScene = new Scene(mainView);
+                mainScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/application.css")).toExternalForm());
+
+                Stage stage = (Stage) passwordField.getScene().getWindow();
+                stage.setScene(mainScene);
+                stage.setTitle("Clínica Bem Estar © Adalove");
+                stage.setResizable(false);
+                stage.show();
             } else {
-                showAlert(Alert.AlertType.ERROR, "Falha ao Entrar", "Senha Incorreta");
+                showAlert(Alert.AlertType.ERROR, "Falha ao Entrar", "Senha ou usuário incorreto");
             }
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while trying to login.");
+            showAlert(Alert.AlertType.ERROR, "Erro", "Ocorreu um erro ao tentar fazer o login.");
         }
     }
+
 
     // Tela que carrega a MainView
     private void loadDashboard() {

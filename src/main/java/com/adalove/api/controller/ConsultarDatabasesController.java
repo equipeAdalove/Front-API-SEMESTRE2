@@ -7,6 +7,7 @@ import com.adalove.api.model.dao.UsuarioDAO;
 import com.adalove.api.model.entities.Funcionario;
 import com.adalove.api.model.entities.Paciente;
 import com.adalove.api.model.entities.Patologia;
+import com.adalove.api.model.entities.Usuario;
 import com.adalove.api.model.services.AlertUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,21 +52,35 @@ public class ConsultarDatabasesController {
     private PacienteDAO pacienteDAO = new PacienteDAO();
     private PatologiaDAO patologiaDAO = new PatologiaDAO();
 
+    private Usuario usuario;
+
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+
+        if (recordsTableView != null && !recordsTableView.getItems().isEmpty()) {
+            loadRecords(entityComboBox.getValue());
+        }
+    }
+
     @FXML
     public void initialize() {
-        entityComboBox.getItems().addAll("Funcionário", "Paciente", "Patologia");
+        entityComboBox.getItems().addAll("Funcionário", "Paciente", "Patologia", "Usuario");
         entityComboBox.setOnAction(event -> onEntitySelected());
-
 
         if (!entityComboBox.getItems().isEmpty()) {
             entityComboBox.getSelectionModel().selectFirst();
             loadRecords(entityComboBox.getValue());
         }
 
-        // Configurando as colunas da TableView
+        // Configuração das colunas da TableView
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdentifier()));
         actionsColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getActions()));
+
+        // Desabilitar o botão de adicionar caso o usuário não seja administrador
+        adicionarRegistro.setDisable(usuario != null && !usuario.isAdministrador());
     }
 
     @FXML
@@ -91,6 +106,10 @@ public class ConsultarDatabasesController {
                 List<Patologia> patologias = patologiaDAO.buscarPorNome(searchText);
                 populateTable(patologias);
             }
+            else if (selectedEntity.equals("Usuario")) {
+                List<Usuario> usuarios = usuarioDAO.buscarPorNome(searchText);
+                populateTable(usuarios);
+            }
         } else {
             assert selectedEntity != null;
             loadRecords(selectedEntity);
@@ -101,67 +120,96 @@ public class ConsultarDatabasesController {
         recordsTableView.getItems().clear();
 
         if (entity.equals("Funcionário")) {
-            // Atualiza os nomes das colunas
+            // Configuração para Funcionário
             nameColumn.setText("Nome");
             idColumn.setText("CRM");
-
             List<Funcionario> funcionarios = funcionarioDAO.read();
             populateTable(funcionarios);
         } else if (entity.equals("Paciente")) {
-            // Atualiza os nomes das colunas
+            // Configuração para Paciente
             nameColumn.setText("Nome");
             idColumn.setText("CPF");
-
             List<Paciente> pacientes = pacienteDAO.read();
             populateTable(pacientes);
         } else if (entity.equals("Patologia")) {
-            // Atualiza os nomes das colunas
+            // Configuração para Patologia
             nameColumn.setText("Nome");
             idColumn.setText("Código CID");
-
             List<Patologia> patologias = patologiaDAO.read();
             populateTable(patologias);
+        } else if (entity.equals("Usuario")) {
+            // Configuração para Usuario
+            nameColumn.setText("Nome de Usuário");
+            idColumn.setText("Administrador");
+            List<Usuario> usuarios = usuarioDAO.read();
+            populateTable(usuarios);
         }
+
+        // Atualiza a tabela após o carregamento
+        recordsTableView.refresh();  // Atualiza a TableView para refletir as mudanças
     }
+
+
 
     private void populateTable(List<?> records) {
         for (Object record : records) {
             String name = "";
-            String identifier = ""; // Usado para CPF ou CID
+            String identifier = ""; // Usado para CRM, CPF, CID ou Administrador
             HBox actionButtons = createActionButtons(record);
 
             if (record instanceof Funcionario) {
                 Funcionario funcionario = (Funcionario) record;
                 name = funcionario.getNome();
-                identifier = funcionario.getCrm(); // Supondo que o CRM seja usado como identificador
+                identifier = funcionario.getCrm();
             } else if (record instanceof Paciente) {
                 Paciente paciente = (Paciente) record;
                 name = paciente.getNome();
-                identifier = paciente.getCpf(); // Usando CPF como identificador
+                identifier = paciente.getCpf();
             } else if (record instanceof Patologia) {
                 Patologia patologia = (Patologia) record;
                 name = patologia.getNome();
-                identifier = patologia.getCid(); // Cid como identificador
+                identifier = patologia.getCid();
+            } else if (record instanceof Usuario) {
+                Usuario usuario = (Usuario) record;
+                name = usuario.getUsername();
+                identifier = usuario.isAdministrador() ? "Sim" : "Não";
             }
 
             recordsTableView.getItems().add(new RecordRow(name, identifier, actionButtons));
         }
     }
 
-    private HBox createActionButtons(Object record) {
-        Button editButton = new Button("Editar");
-        editButton.setOnAction(event -> editRecord(record));
-        editButton.getStyleClass().add("edit-button");
 
+    private HBox createActionButtons(Object record) {
         Button deleteButton = new Button("Excluir");
         deleteButton.setOnAction(event -> confirmDeletion(record));
         deleteButton.getStyleClass().add("remove-button");
 
-        HBox hbox = new HBox(editButton, deleteButton);
+        Button editButton = new Button("Editar");
+        editButton.setOnAction(event -> editRecord(record));
+        editButton.getStyleClass().add("edit-button");
+
+        // Verifica se o usuário é administrador para definir o estado dos botões
+        boolean isAdmin = usuario != null && usuario.isAdministrador();
+        deleteButton.setDisable(usuario == null || !isAdmin);
+
+        // Verifica se o registro é de um usuário para desabilitar o botão de edição
+        if (record instanceof Usuario) {
+            editButton.setDisable(true);  // Desabilita o botão "Editar"
+        } else {
+            editButton.setDisable(!isAdmin);  // Habilita ou desabilita baseado na permissão
+        }
+
+        HBox hbox = new HBox(deleteButton);
+        if (isAdmin && !(record instanceof Usuario)) {
+            hbox.getChildren().add(editButton);
+        }
         hbox.setSpacing(15);
         hbox.setAlignment(Pos.CENTER);
         return hbox;
     }
+
+
 
     private void editRecord(Object record) {
         if (record instanceof Funcionario) {
@@ -214,76 +262,92 @@ public class ConsultarDatabasesController {
     }
 
     private void confirmDeletion(Object record) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmação de Exclusão");
-        alert.setHeaderText("Você tem certeza que deseja excluir este registro?");
-        alert.setContentText("Digite a senha do root para confirmar:");
+        if (usuario != null && usuario.isAdministrador()) { // Verifique se o usuário é admin
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmação de Exclusão");
+            alert.setHeaderText("Você tem certeza que deseja excluir este registro?");
+            alert.setContentText("Digite sua senha para confirmar:");
 
+            PasswordField passwordField = new PasswordField();
+            passwordField.setPromptText("Senha do usuário");
+            alert.getDialogPane().setContent(passwordField);
 
-        PasswordField passwordField = new PasswordField();
-        passwordField.setPromptText("Senha do root");
-
-
-        passwordField.setPrefWidth(200);
-
-        // Adicionando padding ao DialogPane
-        alert.getDialogPane().setContent(passwordField);
-        alert.getDialogPane().setPadding(new Insets(10));
-
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                String password = passwordField.getText();
-                if (isValidRootPassword(password)) {
-                    deleteRecord(record);
-                } else {
-                    showError("Senha incorreta!");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    String password = passwordField.getText();
+                    try {
+                        if (usuarioDAO.authenticateUser(usuario.getUsername(), password) != null) {
+                            deleteRecord(record);
+                        } else {
+                            showError("Senha incorreta!");
+                        }
+                    } catch (SQLException e) {
+                        showError("Erro ao verificar a senha: " + e.getMessage());
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            showError("Somente administradores podem excluir registros.");
+        }
     }
+
 
 
     private boolean isValidRootPassword(String password) {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         try {
-            return usuarioDAO.authenticateUser("root", password);
+            Usuario usuario = usuarioDAO.authenticateUser("root", password);
+            return usuario != null; // Retorna true se o usuário for autenticado (não nulo), false caso contrário
         } catch (SQLException e) {
             e.printStackTrace();
-            return false; // Retorna false em caso de erro
+            return false;
         }
     }
+
 
     private void deleteRecord(Object record) {
         if (record instanceof Funcionario) {
-            try{
+            try {
                 funcionarioDAO.delete(((Funcionario) record).getId());
-                AlertUtil.showSuccessAlert("Registro excluido com sucesso!");
-            }
-            catch (Exception e){
+                AlertUtil.showSuccessAlert("Registro excluído com sucesso!");
+            } catch (Exception e) {
                 AlertUtil.showErrorAlert(e.getMessage());
             }
-
         } else if (record instanceof Paciente) {
-            try{
+            try {
                 pacienteDAO.delete(((Paciente) record).getCpf());
-                AlertUtil.showSuccessAlert("Registro excluido com sucesso!");
-            }
-            catch (Exception e){
+                AlertUtil.showSuccessAlert("Registro excluído com sucesso!");
+            } catch (Exception e) {
                 AlertUtil.showErrorAlert(e.getMessage());
             }
-
         } else if (record instanceof Patologia) {
-
-            try{
+            try {
                 patologiaDAO.delete(((Patologia) record).getCid());
-                AlertUtil.showSuccessAlert("Registro excluido com sucesso!");
+                AlertUtil.showSuccessAlert("Registro excluído com sucesso!");
+            } catch (Exception e) {
+                AlertUtil.showErrorAlert(e.getMessage());
             }
-            catch (Exception e){
+        } else if (record instanceof Usuario) {
+            Usuario usuarioToDelete = (Usuario) record;
+
+            // Verifica se o usuário a ser excluído é o root ou o usuário logado
+            if ("root".equals(usuarioToDelete.getUsername()) || usuarioToDelete.getUsername().equals(usuario.getUsername())) {
+                AlertUtil.showErrorAlert("Não é possível excluir o usuário root ou o usuário atualmente logado.");
+                return; // Interrompe o método se for o root ou o usuário logado
+            }
+
+            try {
+                usuarioDAO.delete(usuarioToDelete.getUsername());
+                AlertUtil.showSuccessAlert("Usuário excluído com sucesso!");
+            } catch (Exception e) {
                 AlertUtil.showErrorAlert(e.getMessage());
             }
         }
+
+        // Atualiza a tabela após a exclusão
         loadRecords(entityComboBox.getValue());
     }
+
 
     private void showError(String message) {
         Alert alert = new Alert(AlertType.ERROR);
@@ -323,9 +387,6 @@ public class ConsultarDatabasesController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
 
-            // Acessa o controlador e define o stage
-            // Acessa o controlador e define o stagee
-            // Acessa o controlador e define o stagee
             if (controller instanceof AdicionarPacienteController) {
                 ((AdicionarPacienteController) controller).setStage(new Stage());
             } else if (controller instanceof AdicionarFuncionarioController) {
@@ -334,7 +395,7 @@ public class ConsultarDatabasesController {
                 ((AdicionarPatologiaController) controller).setStage(new Stage());
             }
 
-            // Cria um novo Stage para a janela modal
+
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.initModality(Modality.WINDOW_MODAL);
@@ -352,8 +413,12 @@ public class ConsultarDatabasesController {
 
     @FXML
     public void onAddRecordClick() {
-        String selectedEntity = entityComboBox.getValue();
+        if (usuario == null || !usuario.isAdministrador()) {
+            showError("Somente administradores podem adicionar registros.");
+            return;
+        }
 
+        String selectedEntity = entityComboBox.getValue();
         if (selectedEntity != null) {
             switch (selectedEntity) {
                 case "Paciente":
@@ -365,16 +430,15 @@ public class ConsultarDatabasesController {
                 case "Patologia":
                     openWindow("/fxml/AdicionarPatologia.fxml", "Adicionar Patologia", new AdicionarPatologiaController());
                     break;
+                case "Usuario":
+                    openWindow("/fxml/AdicionarUsuario.fxml", "Adicionar Usuario", new AdicionarUsuarioController());
+                    break;
                 default:
                     showError("Entidade não reconhecida!");
             }
         }
         loadRecords(entityComboBox.getValue());
     }
-
-
-
-
 
 
 }
