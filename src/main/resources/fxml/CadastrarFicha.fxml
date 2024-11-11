@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" spacing="20.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adalove.api.controller.CadastrarFichaController">
+    <children>
+        <Label fx:id="labelText" text="Cadastrar o documento" />
+        <ComboBox fx:id="modelComboBox" onAction="#handleModeloSelection" />
+        <Button fx:id="cadastrarSemIAButton" onAction="#handleCadastrarSemIA" text="Cadastrar Sem IA" visible="false" />
+
+
+        <HBox fx:id="fileContainer" prefHeight="215.0" prefWidth="556.0" spacing="10" style="-fx-border-color: #1e201e80; -fx-border-width: 2px; -fx-background-color: #16423c1a; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 5;">
+            <Label fx:id="filePathLabel" text="Nenhum arquivo selecionado" />
+            <Button fx:id="removeButton" onAction="#clickToRemoveFile" style="-fx-background-color: #FF0000; -fx-text-fill: white; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
+            <graphic>
+               <FontAwesomeIconView fill="WHITE" glyphName="TIMES" />
+            </graphic></Button>
+        </HBox>
+        <Button fx:id="filePicker" mnemonicParsing="false" onAction="#clickToPickImage" text=" Selecionar Arquivo">
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="FOLDER_OPEN" selectionStart="0" size="15" />
+         </graphic></Button>
+
+        <HBox alignment="CENTER">
+            <Button fx:id="sendButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clickToSend" text="Submeter documento" visible="false" />
+            <VBox.margin>
+                <Insets top="180.0" />
+            </VBox.margin>
+        </HBox>
+
+
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+    </padding>
+</VBox>

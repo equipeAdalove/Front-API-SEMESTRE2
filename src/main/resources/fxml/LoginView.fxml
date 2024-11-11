@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="background-screen" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adalove.api.controller.LoginViewController">
+    <children>
+        <Text layoutX="50.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Software de Análise de Relatórios de Casos Clínicos" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="105.1806640625">
+            <font>
+                <Font size="23.0" />
+            </font>
+        </Text>
+
+        <TextField fx:id="loginField" layoutX="50.0" layoutY="260.0" maxWidth="408.0" prefHeight="31.0" prefWidth="408.0" styleClass="loginTextField" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </TextField>
+
+        <Text fill="#16423c" layoutX="50.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="fieldText" text="Digite o usuário:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="230.20000076293945" />
+
+        <PasswordField fx:id="passwordField" layoutX="50.0" layoutY="340.0" maxWidth="409.0" prefHeight="30.0" prefWidth="409.0" style="-fx-font-size: 10px;" styleClass="loginTextField" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="340.0">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </PasswordField>
+
+        <Text fill="#16423c" layoutX="50.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="fieldText" text="Digite a senha de acesso:" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="310.20000076293945" />
+
+        <Button fx:id="loginButton" layoutX="391.0" layoutY="399.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" prefWidth="67.0" AnchorPane.leftAnchor="391.0" AnchorPane.topAnchor="399.0">
+            <graphic>
+                <FontAwesomeIconView fill="WHITE" glyphName="SIGN_IN" size="30" />
+            </graphic>
+        </Button>
+
+        <Text layoutX="50.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Seja bem-vindo!" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="25.25390625">
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Text>
+
+        <Text layoutX="50.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="adalove" text="© 2024 Adalove." AnchorPane.bottomAnchor="14.80000114440918" AnchorPane.leftAnchor="50.0" />
+    </children>
+</AnchorPane>
