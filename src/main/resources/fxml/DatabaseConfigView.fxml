@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER_LEFT" minHeight="600.0" minWidth="800.0" spacing="20" styleClass="background-screen" stylesheets="@../css/application.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adalove.api.controller.DatabaseConfigController">
+    <padding>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+    </padding>
+
+    <StackPane fx:id="stackPane">
+        <!-- Tela 1: Introdução -->
+        <VBox fx:id="introPane" alignment="TOP_RIGHT" minHeight="500.0" minWidth="700.0" prefHeight="561.0" prefWidth="740.0" spacing="5.0" visible="true" StackPane.alignment="TOP_RIGHT" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" prefHeight="162.0" prefWidth="700.0" spacing="20.0">
+                <ImageView>
+                    <image>
+                        <Image url="@../imagens/icon.png" />
+                    </image>
+                </ImageView>
+                <VBox prefHeight="162.0" prefWidth="540.0" spacing="10.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <Label styleClass="intro-title" text="MindDoc Analyzer" />
+               <Label styleClass="subtitle" text="Software de Análise de Relatórios de Casos Clínicos" />
+                </VBox>
+            </HBox>
+         <Label prefHeight="233.0" prefWidth="680.0" styleClass="description-label" text="   Muitas empresas lidam com milhares de documentos diariamente, como currículos, contas, notas fiscais e assim por diante. Porém, extrair informações destes documentos é uma atividade difícil que depende da atividade humana (mais lenta que computadores) pois apenas retirar o texto pode não ser suficiente visto que as informações dependem do layout visual." wrapText="true">
+            <VBox.margin>
+               <Insets left="30.0" right="30.0" top="30.0" />
+            </VBox.margin></Label>
+             <!-- Texto alinhado para o topo -->
+             <Label alignment="TOP_CENTER" prefHeight="233.0" prefWidth="680.0" styleClass="description-label" text="   MindDoc Analyzer é um projeto voltado para facilitar o acesso e a análise de dados extraídos de relatórios clínicos, organizando as informações de forma estruturada para que profissionais da área de psicologia possam trabalhar de maneira mais eficiente." wrapText="true">
+            <VBox.margin>
+               <Insets left="30.0" right="30.0" />
+            </VBox.margin>
+            <font>
+               <Font name="System Bold" size="12.0" />
+            </font>
+         </Label>
+            <VBox alignment="TOP_LEFT" prefHeight="244.0" prefWidth="700.0" spacing="5.0" VBox.vgrow="ALWAYS">
+
+                <!-- Este VBox vai forçar o botão a ir para o fundo -->
+                <VBox alignment="CENTER" prefHeight="97.0" prefWidth="740.0" spacing="50.0" VBox.vgrow="ALWAYS">
+               <Hyperlink onAction="#openLink" text="A documentação completa está disponível aqui.">
+                  <graphic>
+                     <FontAwesomeIconView fill="#16423c" glyphName="LINK" size="15" text="" />
+                  </graphic>
+               </Hyperlink>
+                </VBox>
+            </VBox>
+            <Button onAction="#nextStep" text="Continuar">
+            <graphic>
+               <FontAwesomeIconView fill="WHITE" glyphName="ARROW_CIRCLE_RIGHT" size="25" />
+            </graphic></Button>
+        </VBox>
+
+        <!-- Tela 2: Configuração do Banco de Dados -->
+        <VBox fx:id="dbUserPane" minWidth="700.0" spacing="20.0" visible="false" StackPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                <children>
+                    <ImageView fitHeight="114.0" fitWidth="113.0">
+                        <image>
+                            <Image url="@../imagens/database-configuration.png" />
+                        </image>
+                    </ImageView>
+                    <Label prefHeight="147.0" prefWidth="740.0" styleClass="description-label" text="Antes de começar a usar o aplicativo, é necessário configurar a conexão com o banco de dados. Para isso, por favor, cadastre as credenciais de usuário e senha do banco de dados" textFill="#375439" wrapText="true" />
+                </children>
+            </VBox>
+
+            <VBox alignment="CENTER_LEFT" prefHeight="250.0" prefWidth="300.0" spacing="20.0">
+                <children>
+                    <Label graphicTextGap="10.0" styleClass="labelLoginField" text="Usuário:">
+                        <graphic>
+                            <FontAwesomeIconView fill="#16423c" glyphName="USER" />
+                        </graphic>
+                    </Label>
+                    <TextField fx:id="usernameField" maxWidth="400.0" prefHeight="35.0" prefWidth="300.0" promptText="Usuário do Banco de Dados" styleClass="loginTextField" />
+
+                    <Label graphicTextGap="10.0" styleClass="labelLoginField" text="Senha:">
+                        <graphic>
+                            <FontAwesomeIconView fill="#16423c" glyphName="UNLOCK_ALT" />
+                        </graphic>
+                    </Label>
+
+                    <!-- Campos de senha: PasswordField e TextField -->
+                    <VBox prefHeight="81.0" prefWidth="610.0" spacing="20.0">
+                        <StackPane alignment="TOP_LEFT">
+                            <TextField fx:id="dbVisiblePasswordField" managed="false" maxWidth="400.0" prefHeight="35.0" prefWidth="300.0" promptText="Senha do Banco de Dados" styleClass="loginTextField" visible="false" />
+                            <PasswordField fx:id="dbPasswordField" maxWidth="400.0" prefHeight="35.0" prefWidth="300.0" promptText="Senha do Banco de Dados" styleClass="loginTextField" />
+                        </StackPane>
+
+                        <!-- CheckBox para alternar entre exibir ou ocultar a senha -->
+                        <CheckBox fx:id="dbShowPasswordCheckBox" onAction="#toggleDbPasswordVisibility" text="Mostrar Senha" />
+                    </VBox>
+                </children>
+            </VBox>
+
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <Button onAction="#nextStep" text="Continuar">
+                        <graphic>
+                            <FontAwesomeIconView fill="WHITE" glyphName="ARROW_CIRCLE_RIGHT" size="25" />
+                        </graphic>
+                    </Button>
+                </children>
+            </HBox>
+        </VBox>
+
+        <!-- Tela 3: Configuração do Usuário do Aplicativo -->
+        <VBox fx:id="appUserPane" minWidth="700.0" spacing="20.0" visible="false" StackPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                <children>
+                    <FontAwesomeIconView fill="#16423c" glyphName="USER_PLUS" size="120" />
+                    <Label prefHeight="147.0" prefWidth="740.0" styleClass="description-label" text="Antes de concluir, informe as credenciais do usuário do aplicativo. Essas informações serão usadas para autenticação dentro do sistema." textFill="#375439" wrapText="true" />
+                </children>
+            </VBox>
+
+            <VBox alignment="CENTER_LEFT" prefHeight="250.0" prefWidth="300.0" spacing="20.0">
+                <children>
+                    <Label graphicTextGap="10.0" styleClass="labelLoginField" text="Usuário:">
+                        <graphic>
+                            <FontAwesomeIconView fill="#16423c" glyphName="USER" />
+                        </graphic>
+                    </Label>
+                    <TextField fx:id="appUsernameField" maxWidth="400.0" prefHeight="35.0" prefWidth="300.0" promptText="Usuário do Aplicativo" styleClass="loginTextField" />
+
+                    <Label graphicTextGap="10.0" styleClass="labelLoginField" text="Senha:">
+                        <graphic>
+                            <FontAwesomeIconView fill="#16423c" glyphName="UNLOCK_ALT" />
+                        </graphic>
+                    </Label>
+
+                    <!-- Campos de senha: PasswordField e TextField -->
+                    <VBox prefHeight="81.0" prefWidth="610.0" spacing="20.0">
+                        <StackPane alignment="TOP_LEFT">
+                            <TextField fx:id="appVisiblePasswordField" managed="false" maxWidth="400.0" prefHeight="35.0" prefWidth="300.0" promptText="Senha do Aplicativo" styleClass="loginTextField" visible="false" />
+                            <PasswordField fx:id="appPasswordField" maxWidth="400.0" prefHeight="35.0" prefWidth="858.0" promptText="Senha do Aplicativo" styleClass="loginTextField" />
+                        </StackPane>
+
+
+                        <!-- CheckBox para alternar entre exibir ou ocultar a senha -->
+                        <CheckBox fx:id="showPasswordCheckBox" onAction="#togglePasswordVisibility" text="Mostrar Senha" />
+                    </VBox>
+                </children>
+            </VBox>
+
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <Button graphicTextGap="10.0" onAction="#handleSave" text="Salvar e Concluir">
+                        <graphic>
+                            <FontAwesomeIconView fill="WHITE" glyphName="ARROW_CIRCLE_RIGHT" size="25" />
+                        </graphic>
+                    </Button>
+                </children>
+            </HBox>
+        </VBox>
+
+    </StackPane>
+</VBox>

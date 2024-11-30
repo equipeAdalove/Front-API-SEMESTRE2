@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" spacing="20.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adalove.api.controller.CadastrarFichaController">
+<VBox prefHeight="600.0" prefWidth="800.0" spacing="20.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adalove.api.controller.CadastrarFichaController">
     <children>
         <Label fx:id="labelText" text="Cadastrar o documento" />
         <ComboBox fx:id="modelComboBox" onAction="#handleModeloSelection" />

@@ -55,7 +55,7 @@
                   <FontAwesomeIconView fill="#16423c" glyphName="DATABASE" size="12" />
                </graphic>
                 </Button>
-                <Button alignment="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="155.0" styleClass="sidebarButton" text="  Preciso de ajuda" GridPane.rowIndex="10">
+                <Button alignment="CENTER" onAction="#handleHelpButtonClick" mnemonicParsing="false" prefHeight="32.0" prefWidth="155.0" styleClass="sidebarButton" text="  Preciso de ajuda" GridPane.rowIndex="10">
                     <GridPane.margin>
                         <Insets left="20.0" />
                     </GridPane.margin>

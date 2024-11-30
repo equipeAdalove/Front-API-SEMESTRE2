@@ -1,18 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+
+
 .root {
     -fx-standard-background-color: #C4DAD2;
     -fx-standard-font-strong-color: rgba(22, 66, 60, 1);
     /*#16423C*/
     -fx-standard-font-medium-color: rgba(22, 66, 60, 0.9);
     -fx-standard-font-weak-color: rgba(22, 66, 60, 0.7);
-    -fx-font-family: "Poppins", sans-serif;
     -fx-background-color: #f5f5f5;
     /*--dark-green: #006400;*/
     /*--sea-green: #2E8B57;*/
     /*--dark-olive-green: #556B2F;*/
+    -fx-font-family: "Poppins", sans-serif;
 
+}
 
+*{
+    -fx-font-family: "Poppins", sans-serif;
 }
 
 .background-screen {
@@ -20,15 +25,72 @@
 
 }
 
+.title, .intro-title {
+    -fx-text-fill: #16423C!important;
+    -fx-fill: #16423C!important;
+    -fx-font-weight: bold;
+
+}
+
+.title{
+    -fx-font-size: 64px;
+}
+
+.intro-title{
+    -fx-font-size: 36px;
+}
+
+.subtitle {
+    -fx-text-fill: -fx-standard-font-medium-color;
+    -fx-fill: -fx-standard-font-medium-color ;
+    -fx-font-size: 18px;
+}
+
+.fieldText {
+    -fx-font-size: 16px;
+    -fx-fill: -fx-standard-font-strong-color;
+
+}
+.hyperlink{
+    -fx-text-fill:-fx-standard-font-strong-color;
+    -fx-font-size: 15px;
+    -fx-underline: true;
+    -fx-font-weight: bold;
+}
+
+.description-label{
+    -fx-font-size: 14px;
+    -fx-spacing: 2px;
+    -fx-text-alignment: justify;
+
+}
+
+.adalove {
+    -fx-font-size: 12px;
+    -fx-fill: -fx-standard-font-weak-color;
+    -fx-underline: true;
+}
+
+
+
 .loginTextField {
     -fx-border-color: -fx-standard-font-strong-color;
     -fx-border-width: 2px;
     -fx-background-color: white;
-    -fx-font-size: 14px!important;
+    -fx-font-size: 12px!important;
     -fx-font-weight: 500;
 
 }
 
+.labelLoginField{
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -fx-standard-font-strong-color;
+}
+
+.password-field{
+    -fx-font-size: 10px!important;
+}
 
 
 .button {
@@ -71,28 +133,6 @@
     -fx-background-radius: 15px;
 }
 
-.title {
-    -fx-font-size: 60px;
-    -fx-fill: -fx-standard-font-strong-color;
-    -fx-font-weight: bold;
-
-}
-
-.subtitle {
-    -fx-fill: -fx-standard-font-medium-color;
-}
-
-.fieldText {
-    -fx-font-size: 16px;
-    -fx-fill: -fx-standard-font-strong-color;
-
-}
-
-.adalove {
-    -fx-font-size: 12px;
-    -fx-fill: -fx-standard-font-weak-color;
-    -fx-underline: true;
-}
 
 
 .sidebar {
@@ -171,9 +211,6 @@
 
 
 
-.password-field{
-    -fx-font-size: 10px!important;
-}
 
 
 

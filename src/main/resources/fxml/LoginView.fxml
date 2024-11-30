@@ -45,6 +45,6 @@
             </font>
         </Text>
 
-        <Text layoutX="50.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="adalove" text="© 2024 Adalove." AnchorPane.bottomAnchor="14.80000114440918" AnchorPane.leftAnchor="50.0" />
+        <Text layoutX="50.0" layoutY="568.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="adalove" text="© 2024 Adalove." AnchorPane.bottomAnchor="27.80000114440918" AnchorPane.leftAnchor="50.0" />
     </children>
 </AnchorPane>

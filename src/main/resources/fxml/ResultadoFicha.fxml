@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.adalove.api.controller.ResultadoFichaController"
-            prefHeight="400.0" prefWidth="600.0"
-            spacing="20.0"
-            stylesheets="@../css/application.css">
+<VBox prefHeight="600.0" prefWidth="600.0" spacing="20.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.adalove.api.controller.ResultadoFichaController">
 
     <children>
-        <Label text="Nome:"/>
-        <TextField fx:id="nomeField"/>
+        <Label text="Nome:" />
+        <TextField fx:id="nomeField" prefHeight="43.0" prefWidth="540.0" />
 
-        <Label text="CPF:"/>
-        <TextField fx:id="cpfField"/>
+        <Label text="CPF:" />
+        <TextField fx:id="cpfField" />
 
-        <Label text="ID Funcionário:"/>
-        <TextField fx:id="idFuncionarioField"/>
+        <Label text="ID Funcionário:" />
+        <TextField fx:id="idFuncionarioField" />
 
-        <Label text="Observações:"/>
-        <TextArea fx:id="observacoesField" wrapText="true"/>
-
-        <Button text="Salvar" onAction="#salvar"/>
+        <Label text="Observações:" />
+        <TextArea fx:id="observacoesField" prefHeight="226.0" prefWidth="540.0" wrapText="true" />
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0">
+         <children>
+      
+              <Button onAction="#salvar" text="Salvar" />
+         </children>
+      </HBox>
     </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 
 </VBox>
-
-
-
-
-
-
